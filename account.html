@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compte — 46 Prediction</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body data-page="account">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">46</span><span>46 <b>Prediction</b><small>La précision se récompense</small></span></a>
+    <nav class="main-nav"><a href="index.html">Accueil</a><a href="search.html">Recherche</a><a href="leaderboard.html">Classement</a><a href="notifications.html">Notifications</a></nav>
+    <div class="wallet"><a class="avatar" href="profile.html">👤</a></div>
+  </header>
+  <main class="container account-page">
+    <p class="eyebrow">SANS ADRESSE E-MAIL</p>
+    <h1>Ton compte 46 Prediction</h1>
+    <p class="account-intro">Crée ton compte avec un nom et un code personnel. À l’inscription, tu reçois <b>100 diamants</b> et <b>0 énergie</b>.</p>
+    <section class="account-card" id="account-entry">
+      <div class="account-tabs" role="tablist" aria-label="Choisir une action">
+        <button class="account-tab active" type="button" data-account-mode="register" role="tab" aria-selected="true">Créer un compte</button>
+        <button class="account-tab" type="button" data-account-mode="login" role="tab" aria-selected="false">J’ai déjà un compte</button>
+      </div>
+      <form id="register-form" class="account-form">
+        <h2>Créer un compte</h2>
+        <label for="register-username">Nom d’utilisateur</label>
+        <input id="register-username" name="username" type="text" minlength="2" maxlength="32" autocomplete="nickname" required placeholder="Exemple : Briel">
+        <label for="register-code">Code personnel <span class="label-hint">12 caractères minimum</span></label>
+        <input id="register-code" name="personalCode" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
+        <label for="register-code-confirm">Confirmer le code personnel</label>
+        <input id="register-code-confirm" name="confirmCode" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
+        <p class="account-note">Garde ce code en lieu sûr. Il te servira à te connecter. Sans adresse e-mail, si tu l’oublies, contacte l’administration.</p>
+        <button class="button button-green account-submit" type="submit">Créer mon compte</button>
+      </form>
+      <form id="login-form" class="account-form hidden">
+        <h2>Se connecter</h2>
+        <label for="login-username">Nom d’utilisateur</label>
+        <input id="login-username" name="username" type="text" autocomplete="username" required>
+        <label for="login-code">Code personnel</label>
+        <input id="login-code" name="personalCode" type="password" autocomplete="current-password" required>
+        <button class="button button-green account-submit" type="submit">Se connecter</button>
+      </form>
+      <p id="account-message" class="account-message" role="status" aria-live="polite"></p>
+    </section>
+    <section class="account-card account-success hidden" id="account-signed-in">
+      <span class="category-tag">COMPTE CONNECTÉ</span>
+      <h2>Bienvenue, <span id="account-name"></span> !</h2>
+      <div class="account-balance"><span>💎 <b id="account-diamonds">100</b> diamants</span><span>⚡ <b id="account-energy">0</b> énergie</span></div>
+      <a class="button button-green" href="profile.html">Aller à mon profil</a>
+      <button class="text-button" type="button" id="account-logout">Se déconnecter</button>
+    </section>
+  </main>
+  <footer><span>46 Prediction · Ton code personnel reste privé.</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

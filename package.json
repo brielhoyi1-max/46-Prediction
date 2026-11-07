@@ -1,0 +1,12 @@
+{
+  "name": "46-prediction",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serveur web de 46 Prediction avec connexion Supabase côté serveur",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

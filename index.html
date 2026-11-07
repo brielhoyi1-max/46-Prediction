@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b35"><title>46 Prediction — Prédictions</title>
+  <link rel="stylesheet" href="styles.css"><script src="app.js" defer></script>
+</head>
+<body data-page="user">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">46</span><span>46 <b>Prediction</b><small>La précision se récompense</small></span></a>
+    <nav class="main-nav"><a class="active" href="index.html">Accueil</a><a href="search.html">Recherche</a><a href="leaderboard.html">Classement</a><a href="notifications.html">Notifications</a></nav>
+    <div class="wallet"><span>💎 <b id="home-diamonds">0</b></span><button id="home-share-reward" class="share-reward hidden" type="button">Partager le site · +100 💎</button><span>⚡ <b id="home-energy">0</b></span><a class="avatar" aria-label="Profil" href="profile.html">46</a></div>
+  </header>
+  <main class="container">
+    <section class="hero"><div><p class="eyebrow">BIENVENUE SUR 46 PREDICTION</p><h1>À toi de prédire<br><span>le bon résultat.</span></h1><p class="hero-copy">Participe aux prédictions publiées par l’administration et gagne de l’énergie lorsque tu as raison.</p><a class="button button-green" href="#predictions">Voir les prédictions <span>→</span></a></div><div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="ball">46</div><span class="spark spark-a">✦</span><span class="spark spark-b">✧</span></div></section>
+    <section class="section-head" id="predictions"><div><p class="eyebrow">À TOI DE JOUER</p><h2>Prédictions ouvertes</h2></div><span class="live-label"><i></i> <span id="prediction-count">0</span> disponibles</span></section>
+    <div id="prediction-list" class="prediction-grid"></div>
+    <section class="empty-state hidden" id="empty-state"><div class="empty-icon">✦</div><h3>Les prochaines prédictions arrivent bientôt</h3><p>L’administration n’a pas encore publié de prédiction. Reviens un peu plus tard !</p></section>
+  </main>
+  <footer><a class="brand brand-small" href="index.html" id="brand-secret" title="46 Prediction"><span class="brand-mark">46</span><span>46 <b>Prediction</b></span></a><span>Prédictions publiées par l’administration.</span></footer>
+  <dialog id="admin-access" class="access-dialog"><form id="admin-access-form" method="dialog"><button class="dialog-close" type="button" aria-label="Fermer">×</button><p class="eyebrow">ACCÈS RÉSERVÉ</p><h2>Espace administration</h2><p class="dialog-copy">Saisis le code d’accès administrateur.</p><label for="admin-code">Code d’accès</label><input id="admin-code" type="password" inputmode="numeric" autocomplete="off" required><p class="access-error" id="access-error" aria-live="polite"></p><button class="button button-green dialog-submit" type="submit">Continuer <span>→</span></button></form></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div></body>
+</html>
+
+
+
+
+
+
+
+

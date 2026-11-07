@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: 46-prediction
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        value: https://ejccinbccpkmwbowgvcd.supabase.co
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: ADMIN_ACCESS_CODE
+        sync: false

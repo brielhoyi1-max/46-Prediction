@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101b35"><title>Administration — 46 Prediction</title><link rel="stylesheet" href="styles.css"><script src="app.js" defer></script></head>
+<body data-page="admin">
+  <aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">46</span><span>46 <b>Prediction</b><small>ESPACE ADMINISTRATION</small></span></a><div class="side-label">GESTION</div><a class="side-link active" href="#dashboard">▦ <span>Tableau de bord</span></a><a class="side-link" href="#create">＋ <span>Créer une prédiction</span></a><a class="side-link" href="admin-predictions.html">◷ <span>Prédictions publiées</span></a><a class="side-link" href="admin-users.html">♙ <span>Utilisateurs</span></a><a class="side-link" href="admin-notifications.html">♢ <span>Notifications</span></a><a class="side-link" href="admin-permissions.html">⚿ <span>Administrateurs</span></a><div class="side-bottom"><div class="admin-person"><span class="admin-avatar">AD</span><span><b>Administrateur</b><small>Gestionnaire</small></span></div></div></aside>
+  <main class="admin-main" id="dashboard"><div class="admin-heading"><div><p class="eyebrow">ESPACE DE GESTION</p><h1>Tableau de bord</h1><p class="muted">Crée et publie les prédictions proposées aux utilisateurs.</p></div><a href="#create" class="button button-green">＋ Nouvelle prédiction</a></div>
+    <section class="stats-grid"><article class="stat-card"><span class="stat-icon purple">◷</span><div><small>Prédictions publiées</small><strong id="stat-total">0</strong></div></article><article class="stat-card"><span class="stat-icon green">●</span><div><small>Prédictions ouvertes</small><strong id="stat-open">0</strong></div></article><article class="stat-card"><span class="stat-icon blue">◉</span><div><small>Choix par prédiction</small><strong>2–4</strong></div></article></section>
+    <section class="admin-panel" id="create"><div class="panel-heading"><div><h2>Créer une prédiction</h2><p>Elle apparaîtra sur le site utilisateur après publication.</p></div><span class="draft-tag">NOUVELLE</span></div>
+      <form id="prediction-form">
+<label for="question">Titre de la prédiction <span class="required">*</span></label><textarea id="question" name="question" rows="2" placeholder="Ex. : La RDC remportera-t-elle son prochain match ?" required maxlength="180"></textarea>
+<label for="image">Image de la prédiction <span class="required">*</span></label><input id="image" name="image" type="file" accept="image/png,image/jpeg,image/webp" required><small class="label-hint">Image JPG, PNG ou WEBP (2 Mo maximum).</small><div id="image-preview" class="image-preview hidden"></div>
+<div class="form-row"><div><label for="category">Catégorie <span class="required">*</span></label><select id="category" name="category" required><option value="">Choisir une catégorie</option><option>Sport</option><option>Politique</option><option>Économie</option><option>Divertissement</option><option>Actualité</option><option>Technologie</option><option>Culture</option><option>Autre</option></select></div><div><label for="deadline">Date et heure de clôture <span class="required">*</span></label><input id="deadline" name="deadline" type="datetime-local" required></div></div>
+<label for="description">Description de l’événement <span class="required">*</span></label><textarea id="description" name="description" rows="3" maxlength="2000" placeholder="Présente le contexte de l’événement…" required></textarea>
+<div class="form-row"><div><label for="yes-meaning">Que signifie OUI ? <span class="required">*</span></label><textarea id="yes-meaning" name="yesMeaning" rows="4" placeholder="Définis précisément la condition OUI…" required></textarea></div><div><label for="no-meaning">Que signifie NON ? <span class="required">*</span></label><textarea id="no-meaning" name="noMeaning" rows="4" placeholder="Définis précisément la condition NON…" required></textarea></div></div>
+<label for="source">Source de vérification fiable <span class="required">*</span></label><input id="source" name="source" type="url" placeholder="https://…" required>
+<div class="form-row"><div><label for="minimum-stake">Participation minimale (diamants) <span class="required">*</span></label><input id="minimum-stake" name="minimumStake" type="number" min="1" step="1" value="1" required></div><div><label for="energy-rate">Récompense (énergie par diamant engagé) <span class="required">*</span></label><input id="energy-rate" name="energyRate" type="number" min="0.1" step="0.1" value="1" required></div></div>
+<div class="form-note"><span>ⓘ</span><p>Les utilisateurs choisissent librement leur mise au-dessus du minimum, jusqu’à leur solde. Les participations sont possibles jusqu’à la clôture.</p></div>
+<div class="form-actions"><button type="reset" class="button button-quiet">Effacer</button><button type="submit" class="button button-green">Publier la prédiction <span>→</span></button></div>
+</form>
+    </section>
+    <section class="admin-panel" id="manage"><div class="panel-heading"><div><h2>Prédictions publiées</h2><p>Gère les prédictions visibles par les utilisateurs.</p></div></div><div id="admin-list" class="admin-list"></div></section>
+    <p class="prototype-note">Prototype d’interface : les données sont enregistrées dans ce navigateur. La connexion réelle et les permissions nécessitent un serveur.</p>
+  </main><div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
+
+
+
+
+
+
