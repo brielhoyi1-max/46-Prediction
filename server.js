@@ -102,11 +102,11 @@ function userDto(row) {
 }
 function hitRateLimit(ip) {
   const now = Date.now();
-  const record = attempts.get(ip) || {count:0, until:now + 15 * 60 * 1000};
-  if (record.until < now) { record.count = 0; record.until = now + 15 * 60 * 1000; }
+  const record = attempts.get(ip) || {count:0, until:now + 10 * 60 * 1000};
+  if (record.until < now) { record.count = 0; record.until = now + 10 * 60 * 1000; }
   record.count++;
   attempts.set(ip, record);
-  return record.count > 8;
+  return record.count > 30;
 }
 function getSupabaseConfig() {
   if (!SUPABASE_URL || !SUPABASE_KEY) return null;
@@ -193,6 +193,9 @@ const server = http.createServer(async (req, res) => {
       return json(res, 201, {ok:true, user:userDto(row)}, setUserSession(res, row.id));
     } catch (error) {
       if (error.status === 409) return json(res, 409, {error:"username_taken"});
+      console.error("Account registration failed:", error.status || error.name || "unknown_error");
+      if (error.status === 401 || error.status === 403) return json(res, 503, {error:"database_key_invalid"});
+      if (error.status === 400 || error.status === 404) return json(res, 503, {error:"database_schema_error"});
       return json(res, 503, {error:"account_creation_failed"});
     }
   }
