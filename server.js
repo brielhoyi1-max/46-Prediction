@@ -120,18 +120,25 @@ async function supabase(table, query = "", options = {}) {
   const base = getSupabaseConfig();
   if (!base) throw new Error("database_not_configured");
   const url = `${base.origin}/rest/v1/${encodeURIComponent(table)}${query ? `?${query}` : ""}`;
-  const response = await fetch(url, {
-    method: options.method || "GET",
-    headers: {
-      apikey: SUPABASE_KEY,
-      // Modern sb_secret keys are sent only as `apikey`; legacy service_role JWTs also need Authorization.
-      ...(LEGACY_SERVICE_ROLE_KEY && !SUPABASE_SECRET_KEY ? {Authorization:`Bearer ${LEGACY_SERVICE_ROLE_KEY}`} : {}),
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      ...(options.prefer ? {Prefer:options.prefer} : {})
-    },
-    ...(options.body === undefined ? {} : {body:JSON.stringify(options.body)})
-  });
+  let response;
+  try {
+    response = await fetch(url, {
+      method: options.method || "GET",
+      headers: {
+        apikey: SUPABASE_KEY,
+        // Modern sb_secret keys are sent only as `apikey`; legacy service_role JWTs also need Authorization.
+        ...(LEGACY_SERVICE_ROLE_KEY && !SUPABASE_SECRET_KEY ? {Authorization:`Bearer ${LEGACY_SERVICE_ROLE_KEY}`} : {}),
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        ...(options.prefer ? {Prefer:options.prefer} : {})
+      },
+      ...(options.body === undefined ? {} : {body:JSON.stringify(options.body)})
+    });
+  } catch (cause) {
+    const error = new Error("database_unreachable", {cause});
+    error.code = "database_unreachable";
+    throw error;
+  }
   const raw = await response.text();
   if (!response.ok) {
     const error = new Error("database_request_failed");
@@ -167,8 +174,8 @@ const server = http.createServer(async (req, res) => {
       await supabase("users", "select=id&limit=1");
       return json(res, 200, {ok:true});
     } catch (error) {
-      console.error("Supabase health check failed:", error.status || error.name || "unknown_error");
-      return json(res, 503, {ok:false, error:"database_connection_failed"});
+      console.error("Supabase health check failed:", error.code || error.status || error.name || "unknown_error");
+      return json(res, 503, {ok:false, error:error.code || "database_connection_failed"});
     }
   }
 
@@ -193,7 +200,8 @@ const server = http.createServer(async (req, res) => {
       return json(res, 201, {ok:true, user:userDto(row)}, setUserSession(res, row.id));
     } catch (error) {
       if (error.status === 409) return json(res, 409, {error:"username_taken"});
-      console.error("Account registration failed:", error.status || error.name || "unknown_error");
+      console.error("Account registration failed:", error.code || error.status || error.name || "unknown_error");
+      if (error.code === "database_unreachable") return json(res, 503, {error:"database_unreachable"});
       if (error.status === 401 || error.status === 403) return json(res, 503, {error:"database_key_invalid"});
       if (error.status === 400 || error.status === 404) return json(res, 503, {error:"database_schema_error"});
       return json(res, 503, {error:"account_creation_failed"});
